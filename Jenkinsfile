@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Stage Bye') {
             steps {
-                sh 'echo "Bye world"'
+                sh 'wrk -t2 -c5 -d5s -H "Host: example.com" --timeout 2s http://example.com/index.html'
             }
         }
     }

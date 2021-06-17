@@ -3,31 +3,16 @@ pipeline {
     dockerfile true
   }
   stages {
-    stage('Stage Bye') {
-      parallel {
-        stage('Stage Bye') {
-          agent any
-          steps {
-            sh 'wrk -t2 -c5 -d5s -H "Host: example.com" --timeout 2s http://example.com/index.html'
-          }
-        }
-
-        stage('test') {
-          steps {
-            sh 'echo \'hello\''
-            retry(count: 3) {
-              sleep 1
-            }
-
-          }
-        }
-
+    stage('get example.com') {
+      steps {
+        sh 'curl http://example.com > example.com'
       }
     }
 
-    stage('asdf') {
+    stage('keep example.com') {
       steps {
-        isUnix()
+        archiveArtifacts(artifacts: 'example.com', caseSensitive: true, fingerprint: true)
+        echo 'ok'
       }
     }
 

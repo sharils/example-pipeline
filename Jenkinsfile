@@ -8,7 +8,7 @@ pipeline {
         stage('set A') {
           steps {
             script {
-              A = sh(returnStdout: true, script: 'wc -l')
+              A = sh(returnStdout: true, script: 'ls -al | wc -l')
             }
 
           }

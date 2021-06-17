@@ -4,9 +4,20 @@ pipeline {
   }
   stages {
     stage('set A') {
-      steps {
-        script {
-          A = sh(returnStdout: true, script: 'wc -l')
+      parallel {
+        stage('set A') {
+          steps {
+            script {
+              A = sh(returnStdout: true, script: 'wc -l')
+            }
+
+          }
+        }
+
+        stage('wc -l') {
+          steps {
+            sh 'wc -l'
+          }
         }
 
       }

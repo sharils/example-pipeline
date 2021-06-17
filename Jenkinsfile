@@ -3,16 +3,18 @@ pipeline {
     dockerfile true
   }
   stages {
-    stage('get example.com') {
+    stage('set A') {
       steps {
-        sh 'ls -al > files'
+        script {
+          A = sh(returnStdout: true, script: 'wc -l')
+        }
+
       }
     }
 
-    stage('keep example.com') {
+    stage('get A') {
       steps {
-        archiveArtifacts(artifacts: 'files', caseSensitive: true, fingerprint: true)
-        echo 'ok'
+        echo A
       }
     }
 
